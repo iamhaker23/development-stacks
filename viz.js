@@ -32,7 +32,8 @@ var concentricPieCharts = function(options){
                         centreY:this.charts[0]["obj"].centreY,
                         centreXoffset:this.charts[0]["obj"].centreXoffset,
                         centreYoffset:this.charts[0]["obj"].centreYoffset,
-                        percentages:this.charts[0]["obj"].percentages
+                        percentages:this.charts[0]["obj"].percentages,
+                        autocolour: this.charts[0]["obj"].autocolour
                     };
         }
         
@@ -82,7 +83,11 @@ var Piechart = function(options){
         for (slice in this.options.data){
             var myColours = {};
             for (var categ in this.options.data[slice]){
-                myColours[categ] = this.options.data[slice][categ].colour;
+                if (this.options["obj"].autocolour){
+                    myColours[categ] = '#'+Math.max(Math.ceil(Math.random()*255), 100).toString(16)+Math.max(Math.ceil(Math.random()*255), 100).toString(16)+(255).toString(16);
+                }else{
+                    myColours[categ] = this.options.data[slice][categ].colour;
+                }
             }
             this.colours[slice] = myColours;
         }
