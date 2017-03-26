@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Web Development Stacks</title>
+    <script src="viz.js"></script>
+    <script>
+        var isMouseDown = false;
+        
+        window.onload=function(){
+        
+            var canvas = document.getElementById("myCanvas");
+            canvas.width = 1000;
+            canvas.height = 1000;
+            canvas.onmouseup = mouseUp;
+            canvas.onmousedown = mouseDown;
+            canvas.onmousemove = mouseMove;
+            canvas.onmouseout = mouseOut;
+            canvas.style="cursor:crosshair";
+            
+            var charts = 
+            [
+                {
+                    obj:{
+                        circlePadding: 0.1,
+                        doughnutHoleSize:0.8,
+                        width:1000,
+                        height:1000,
+                        centreX:500,
+                        centreY:500,
+                        centreXoffset:0,
+                        centreYoffset:0,
+                        percentages:false
+                    },
+                    slices:{
+                        0:{"Linux": {value:3, colour:"#fde23e"}},
+                        1:{"iOS":{value:3, colour:"#937e88"}},
+                        2:{"Win.":{value:3, colour:"#57d9ff"}},
+                        3:{"Unix":{value:3, colour:"#f16e23"}},
+                        4:{"Others":{value:3, colour:"#5757ff"}}
+                    }
+                },
+                {
+                    slices:{
+                        0:{"MySQL": {value:3, colour:"#fde23e"},
+                        "MongoDB":{value:3, colour:"#937e88"}},
+                        1:{"MySQL": {value:3, colour:"#fde23e"},
+                        "MongoDB":{value:3, colour:"#937e88"}},
+                        2:{"MySQL": {value:3, colour:"#fde23e"},
+                        "MongoDB":{value:3, colour:"#937e88"}},
+                        3:{"MySQL": {value:3, colour:"#fde23e"},
+                        "MongoDB":{value:3, colour:"#937e88"}},
+                        4:{"MySQL": {value:3, colour:"#fd0200"},
+                        "a":{value:3, colour:"#937e00"},
+                        "b":{value:3, colour:"#930088"},
+                        "c":{value:3, colour:"#007e88"}}
+                    }
+                },
+                {
+                    slices:{
+                        0:{"Linux": {value:3, colour:"#fde23e"}},
+                        1:{"iOS":{value:3, colour:"#937e88"}},
+                        2:{"Win.":{value:3, colour:"#57d9ff"}},
+                        3:{},
+                        4:{"Others":{value:3, colour:"#5757ff"}}
+                    }
+                },
+                {
+                    slices:{
+                        0:{"Linux": {value:3, colour:"#fde23e"}},
+                        1:{"iOS":{value:3, colour:"#937e88"}},
+                        2:{"Win2.":{value:3, colour:"#57d9ff"}},
+                        3:{"Unix":{value:3, colour:"#f16e23"}},
+                        4:{"Others":{value:3, colour:"#5757ff"}}
+                    }
+                }
+            ];
+            
+            
+            
+            var piecharts = new concentricPieCharts({
+                canvas: canvas,
+                charts:charts
+            });
+            
+            piecharts.draw();
+        
+        };
+    </script>
+</head>
+
+<body>
+
+<canvas id="myCanvas"></canvas>
+
+</body>
+
+</html>
