@@ -64,6 +64,9 @@ var concentricPieCharts = function(options){
         for (var key in this.drawables){
             this.drawables[key].draw();
         }
+        for (var key in this.drawables){
+            this.drawables[key].drawLabels();
+        }
     }
     
 }
@@ -73,7 +76,22 @@ var Piechart = function(options){
     this.ctx = this.options.ctx;
     this.concentric = options.concentric;
     this.cindex = options.cindex;
- 
+    this.labels = [];
+    
+    this.drawLabels = function(){
+        
+        for(var slice in this.labels){
+            for (lbl in this.labels[slice]){
+                this.ctx.fillStyle = "black";
+                //this.ctx.strokeStyle = "black";
+                this.ctx.font = "bold 0.75em Verdana";
+                var txt = "•"+this.labels[slice][lbl].labelText;
+                this.ctx.fillText(txt,this.labels[slice][lbl].labelX,this.labels[slice][lbl].labelY);
+                //this.ctx.strokeText(txt,this.labels[slice][lbl].labelX,this.labels[slice][lbl].labelY);
+            }
+        }
+    }
+    
     this.draw = function(){
         var total_value = this.options.total_value;
         var color_index = 0;
@@ -82,9 +100,11 @@ var Piechart = function(options){
         
         for (slice in this.options.data){
             var myColours = {};
+            var weight = 150;
             for (var categ in this.options.data[slice]){
                 if (this.options["obj"].autocolour){
-                    myColours[categ] = '#'+Math.max(Math.ceil(Math.random()*255), 100).toString(16)+Math.max(Math.ceil(Math.random()*255), 100).toString(16)+(255).toString(16);
+                    myColours[categ] = '#'+Math.max(Math.ceil(Math.random()*255), weight).toString(16)+Math.max(Math.ceil(Math.random()*255), weight).toString(16)+(Math.max(Math.ceil(Math.random()*255), weight)).toString(16);
+                    weight+=(255-weight)/(2*Object.keys(this.options.data).length);
                 }else{
                     myColours[categ] = this.options.data[slice][categ].colour;
                 }
@@ -151,16 +171,7 @@ var Piechart = function(options){
             );
         }
         
-        for(var slice in labels){
-            for (lbl in labels[slice]){
-                this.ctx.fillStyle = "black";
-                //this.ctx.strokeStyle = "black";
-                this.ctx.font = "bold 0.75em Verdana";
-                var txt = "•"+labels[slice][lbl].labelText;
-                this.ctx.fillText(txt,labels[slice][lbl].labelX,labels[slice][lbl].labelY);
-                //this.ctx.strokeText(txt,labels[slice][lbl].labelX,labels[slice][lbl].labelY);
-            }
-        }
+        this.labels = labels;
  
     }
 }
